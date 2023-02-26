@@ -24,7 +24,8 @@ public class Offer {
     this.description = description;
     this.prix = prix;
     this.dateLimite = dateLimite;
-
+    int status1 = status;
+    this.status = (status1);
   }
 }
 
