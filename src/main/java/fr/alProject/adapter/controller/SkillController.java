@@ -3,13 +3,11 @@ package fr.alProject.adapter.controller;
 import fr.alProject.adapter.Entity.SkillEntity;
 import fr.alProject.adapter.Entity.UserEntity;
 import fr.alProject.port.in.SkillSaveService;
+import fr.alProject.port.in.SkillserviceFindAll;
 import fr.alProject.port.out.SkillSaveRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,9 +17,15 @@ import java.util.Map;
 public class SkillController {
 
     SkillSaveService skillSaveService;
+    SkillserviceFindAll skillserviceFindAll;
 
-    SkillController( SkillSaveService skillSaveService) {
+
+
+    SkillController(
+            SkillSaveService skillSaveService,
+            SkillserviceFindAll skillserviceFindAll) {
         this.skillSaveService = skillSaveService;
+        this.skillserviceFindAll = skillserviceFindAll;
     }
 
     @PostMapping
@@ -63,5 +67,9 @@ public class SkillController {
             return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
         }
 
+    }
+    @GetMapping
+    public ResponseEntity<?> findAll(){
+        return ResponseEntity.ok(this.skillserviceFindAll.findAll());
     }
 }
