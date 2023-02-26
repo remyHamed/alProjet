@@ -1,4 +1,4 @@
-package Domaine;
+package fr.alProject.domain.Model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -11,28 +11,12 @@ public class Offer {
   private BigDecimal prix;
   private LocalDate dateLimite;
 
-  public Offer(String name, String description, BigDecimal price) {
+  public Offer(String name, String description, BigDecimal prix) {
     this.titre = titre;
     this.description = description;
     this.prix = prix;
     this.dateLimite = dateLimite;
 
-  }
-
-  public String getTitle() {
-    return titre;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public BigDecimal getPrice() {
-    return prix;
-  }
-
-  public LocalDate getDateLimite() {
-    return dateLimite;
   }
 
 }
