@@ -9,11 +9,12 @@ import lombok.Setter;
 public class User {
     private final String  firstName;
     private final String  lastName;
-    private final Status  status;
+    private final int status;
 
-    public User(String firstName, String lastName, Status status) {
+    public User(String firstName, String lastName, int status) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.status = status;
+        int status1 = status;
+        this.status = (status1);
     }
 }

@@ -1,6 +1,6 @@
 package fr.alProject.adapter.controller;
-
-import fr.alProject.domain.enumerator.Status;
+import fr.alProject.adapter.Entity.UserEntity;
+import fr.alProject.port.in.UserSaveService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +15,13 @@ import java.util.Map;
 @RequestMapping("/api/v1/user")
 public class UserController {
 
+    private final UserSaveService userSaveService ;
+
+
+    public UserController(UserSaveService userSaveService) {
+        this.userSaveService = userSaveService;
+    }
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Map<String, Object> body){
 
@@ -27,7 +34,6 @@ public class UserController {
         String lastName = (String) body.get("lastName");
         if (lastName == null)
             errorBody.put("errorName", "lastName is null !");
-
 
         if (body.get("status") == null)
             errorBody.put("errorName", "status is null !");
@@ -44,7 +50,8 @@ public class UserController {
             return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
 
         try{
-            System.out.println("todo");
+            UserEntity userCreated = this.userSaveService.save(firstName,lastName, statusUser);
+            return new ResponseEntity<>(userCreated, HttpStatus.CREATED);
         }catch (IllegalArgumentException e){
             errorBody.put("internalError", e.getMessage());
             return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
