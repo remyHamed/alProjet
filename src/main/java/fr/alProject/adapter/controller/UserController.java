@@ -38,10 +38,14 @@ public class UserController {
             errorBody.put("errorName", "status is null !");
 
         int statusUser = (int) body.get("status");
-
+        int statusUserChecked = 0;
         switch (statusUser) {
-            case 1 -> statusUser = 1;
-            case 2 -> statusUser = 2;
+            case 1 -> {
+                statusUserChecked = 1;
+            }
+            case 2 -> {
+                statusUserChecked = 2;
+            }
             default -> errorBody.put("errorRarity", "the chosen status is unknown");
         }
 
@@ -49,7 +53,7 @@ public class UserController {
             return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
 
         try{
-            UserEntity userCreated = this.userSaveService.save(firstName,lastName, statusUser);
+            UserEntity userCreated = this.userSaveService.save(firstName,lastName, statusUserChecked);
             return new ResponseEntity<>(userCreated, HttpStatus.CREATED);
         }catch (IllegalArgumentException e){
             errorBody.put("internalError", e.getMessage());
