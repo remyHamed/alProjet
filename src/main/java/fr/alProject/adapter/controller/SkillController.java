@@ -1,6 +1,9 @@
 package fr.alProject.adapter.controller;
 
+import fr.alProject.adapter.Entity.SkillEntity;
 import fr.alProject.adapter.Entity.UserEntity;
+import fr.alProject.port.in.SkillSaveService;
+import fr.alProject.port.out.SkillSaveRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +17,12 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/skill")
 public class SkillController {
+
+    SkillSaveService skillSaveService;
+
+    SkillController( SkillSaveService skillSaveService) {
+        this.skillSaveService = skillSaveService;
+    }
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody Map<String, Object> body){
@@ -44,6 +53,10 @@ public class SkillController {
             return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
 
         try{
+
+            SkillEntity skillCreated = this.skillSaveService.save(userId,title,price);
+
+            return new ResponseEntity<>(skillCreated, HttpStatus.CREATED);
 
         }catch (IllegalArgumentException e){
             errorBody.put("internalError", e.getMessage());
