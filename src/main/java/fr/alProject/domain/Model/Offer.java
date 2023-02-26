@@ -3,8 +3,6 @@ package fr.alProject.domain.Model;
 import fr.alProject.domain.enumerator.StatutOffer;
 import lombok.Getter;
 import lombok.Setter;
-
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -17,15 +15,14 @@ public class Offer {
   private String description;
   private BigDecimal prix;
   private LocalDate dateLimite;
-  private final int status;
+  private StatutOffer statutOffer;
 
-  public Offer(String name, String description, BigDecimal price, int status) {
+  public Offer(String name, String description, BigDecimal price, StatutOffer statutOffer) {
     this.titre = titre;
     this.description = description;
     this.prix = prix;
     this.dateLimite = dateLimite;
-    int status1 = status;
-    this.status = (status1);
+    this.statutOffer = statutOffer;
   }
 }
 
